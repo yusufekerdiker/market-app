@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../product/product';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -24,6 +28,20 @@ export class ProductService {
         console.log(JSON.stringify(data));
         // this.alertifyService.success(JSON.stringify(data) + ' log!');
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token',
+      }),
+    };
+
+    return this.http.post<Product>(this.path, product, httpOptions).pipe(
+      tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );
   }

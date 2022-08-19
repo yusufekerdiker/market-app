@@ -5,4 +5,11 @@
 
 .card {
     padding: 0;
+    margin-top: 1%;
+}
+
+img {
+    width: auto;
+    height: 200px;
+    object-fit: cover;
 }
